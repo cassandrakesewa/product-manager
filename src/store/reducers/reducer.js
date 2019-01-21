@@ -27,6 +27,14 @@ const reducer = (state = initialState, action) => {
                 loading:false
 
             }
+        case(actionTypes.DELETE_PRODUCT):
+            const newProducts = [...state.products];
+            newProducts.splice(action.index, 1); 
+            return{
+                ...state,
+                products:newProducts
+            }
+
         default:
             return state;
     }

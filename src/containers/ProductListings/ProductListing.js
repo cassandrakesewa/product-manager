@@ -4,40 +4,48 @@ import { connect } from 'react-redux'
 
 import ProductItem from '../../components/ProductItem/ProductItem';
 import * as actions from '../../store/actions/index';
+import TableRowCustom from '../../components/ProductItem/TableRow';
 
 class ProductListing extends Component{
-    // state = {
-    //     products:null,
-    //     prices:null,
-    //     loading:true
-    // }            
-
     componentDidMount(){
         this.props.onProductFetch();
-        // axios.get('/5c3e15e63500006e003e9795')
-        // .then(response => {
-        //     const prices = response.data.products.map(price => {return price});
-            
-        //     this.setState({
-        //         products:response.data.products,
-        //         prices:prices,
-        //         loading:false
-        //     })
-        // }).catch(error => {
-        //     this.setState({
-        //         loading:false
-        //     })
-        // })
+    }
 
+    onDeleteHandler = (ind) => {
+        
+        this.props.onDeleteProduct(ind);
+        console.log(this.props.products);
+        
     }
 
 
     render(){
         let productData = <p>Products Loading.....</p>
-        console.log(this.props.products)
+       
         
         if (!this.props.loading) {
-            productData = <ProductItem products={this.props.products}/>
+            
+            const products = this.props.products.map((product,index) => {
+                // console.log("index", index);
+
+                // Using bubble sorting algorithm 
+                const recentPrice = product.prices.sort((a, b) => {
+                    const aDate = new Date(a.date);
+                    const bDate = new Date(b.date);
+                    return bDate - aDate;
+                })[0];
+                
+                return (
+                    <TableRowCustom 
+                    key={product.id}
+                    product={product} 
+                    recentPrice ={recentPrice}
+                    clickedDelete={(ind)=>this.onDeleteHandler(index)} />
+                );
+            });
+
+            productData = (<ProductItem> {products} </ProductItem>);
+            
         }
         
 
@@ -60,7 +68,8 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch => {
     return{
-        onProductFetch: () => dispatch(actions.fetchProducts())
+        onProductFetch: () => dispatch(actions.fetchProducts()),
+        onDeleteProduct: (index) => dispatch(actions.deleteProduct(index))
     }
 }
 

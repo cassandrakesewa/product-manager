@@ -29,10 +29,17 @@ export const fetchProducts = () => {
         .then(response => {
             console.log("from action");
             const products = response.data.products;
-            const prices = response.data.products.map(price => {return price});
+            const prices = response.data.products.map(product => {return product.prices});
             dispatch(fetchProductSuccess(products,prices));
         }).catch(error => {
             dispatch(fetchProductFailed(error))
         })
+    }
+}
+
+export const deleteProduct = (index) => {
+    return{
+        type:actionTypes.DELETE_PRODUCT,
+        index
     }
 }
