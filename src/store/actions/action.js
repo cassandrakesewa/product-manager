@@ -8,8 +8,19 @@ export const addProduct = (lastProductId,lastPriceId,products,price) => {
         type:actionTypes.ADD_PRODUCT,
         products:products,
         prices:price,
-        lastPriceId,lastProductId,
+        lastProductId:lastProductId,
         lastPriceId:lastPriceId
+    }
+}
+
+export const updateProduct = (lastPriceId,productIndex,products,price) => {
+    
+    return {
+        type:actionTypes.ADD_PRODUCT,
+        products:products,
+        price:price,
+        lastPriceId:lastPriceId,
+        productIndex:productIndex
     }
 }
 

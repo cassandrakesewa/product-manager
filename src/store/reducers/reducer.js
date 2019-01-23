@@ -5,18 +5,28 @@ const initialState = {
     products:[],
     prices:[],
     loading:true,
+    updated:false
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case(actionTypes.ADD_PRODUCT):
-            console.log("reducer is called");
             return{
                 ...state,
                 products:state.products.concat(action.products),
                 prices:state.prices.concat(action.prices),
                 lastProductId:action.lastProductId,
                 lastPriceId:action.lastPriceId
+            }
+        case(actionTypes.UPDATE_PRODUCT):
+            const newProductState = {...state.products}
+            newProductState[action.productIndex] = action.products
+            return{
+                ...state,
+                products:newProductState,
+                prices:state.prices.concat(action.price),
+                lastPriceId:action.lastPriceId,
+                updated:true
             }
         case(actionTypes.FETCH_PRODUCT_START):
             return{
