@@ -9,9 +9,19 @@ import App from './App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './store/reducers/reducer';
+import { loadState, saveState } from './localStorage';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const persistedState = loadState();
+
+const store = createStore(reducer, persistedState, composeEnhancers(applyMiddleware(thunk)));
+
+store.subscribe(() => {
+  console.log("savesate", store.getState());
+  saveState(
+    store.getState()
+  );
+})
 
 const app = (
     <Provider store={store}>

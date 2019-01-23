@@ -11,7 +11,6 @@ class App extends Component {
     return (
       <div className="App">
         <Layout>
-          <h1>Product Manager</h1>
           <Switch>
             <Route  path='/add-drug'  component={AddProduct} />
             <Route  path='/'  component={ProductListing} />

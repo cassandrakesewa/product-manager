@@ -6,24 +6,31 @@ import ProductItem from '../../components/ProductItem/ProductItem';
 import * as actions from '../../store/actions/index';
 import TableRowCustom from '../../components/ProductItem/TableRow';
 
+
 class ProductListing extends Component{
-    componentDidMount(){
+    componentWillMount(){
         this.props.onProductFetch();
     }
 
-    onDeleteHandler = (ind) => {
+    onDeleteHandler = (index) => {
         
-        this.props.onDeleteProduct(ind);
+        this.props.onDeleteProduct(index);
         console.log(this.props.products);
         
     }
+
+    handleModalClickOpen = () => {
+      this.props.onOpenModal();
+      console.log("Modal open", this.props.open)
+    }
+  
 
 
     render(){
         let productData = <p>Products Loading.....</p>
        
         
-        if (!this.props.loading) {
+        if (!this.props.loading && this.props.products) {
             
             const products = this.props.products.map((product,index) => {
                 // console.log("index", index);
@@ -40,7 +47,8 @@ class ProductListing extends Component{
                     key={product.id}
                     product={product} 
                     recentPrice ={recentPrice}
-                    clickedDelete={(ind)=>this.onDeleteHandler(index)} />
+                    clickedView ={this.handleModalClickOpen}
+                    clickedDelete={()=>this.onDeleteHandler(index)} />
                 );
             });
 
@@ -51,8 +59,9 @@ class ProductListing extends Component{
 
         return (
             <React.Fragment>
-                <p>Drug Listings and Prices</p>
+                <h1>Drug Listings with Current Prices</h1>
                 {productData}
+                
             </React.Fragment>
         );
     }
@@ -61,7 +70,9 @@ class ProductListing extends Component{
 const mapStateToProps = state =>{
     return{
         products:state.products,
-        prices:state.prices
+        prices:state.prices,
+        open:state.open,
+        loading:state.loading
     }
     
 }
@@ -69,7 +80,8 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch => {
     return{
         onProductFetch: () => dispatch(actions.fetchProducts()),
-        onDeleteProduct: (index) => dispatch(actions.deleteProduct(index))
+        onDeleteProduct: (index) => dispatch(actions.deleteProduct(index)),
+        onOpenModal: () => dispatch(actions.showModal())
     }
 }
 

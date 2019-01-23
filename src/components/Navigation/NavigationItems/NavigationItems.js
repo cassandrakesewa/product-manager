@@ -8,18 +8,17 @@ import NavItem from '../NavigationItem/NavigationItem';
 const styles = {
     root: {
       backgroundColor: '#f5f5f5',
+      padding:'0 20px',
     }
   };
 
 const navigationItems = (props) => {
-    
-
-      const { classes } = props;
+    const { classes } = props;
     return(
         <AppBar position="static" classes={{ root: classes.root }}>
             <ul>
+                <NavItem link="/add-drug">Add Drug</NavItem>
                 <NavItem link="/" exact>Drug Listings</NavItem>
-                {/* <NavItem link="/add-drug">Add Drug</NavItem> */}
             </ul>
             
         </AppBar>
