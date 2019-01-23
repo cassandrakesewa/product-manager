@@ -5,16 +5,18 @@ const initialState = {
     products:[],
     prices:[],
     loading:true,
-    open:false
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case(actionTypes.ADD_PRODUCT):
+            console.log("reducer is called");
             return{
                 ...state,
-                products:action.products,
-                prices:action.prices
+                products:state.products.concat(action.products),
+                prices:state.prices.concat(action.prices),
+                lastProductId:action.lastProductId,
+                lastPriceId:action.lastPriceId
             }
         case(actionTypes.FETCH_PRODUCT_START):
             return{
@@ -46,7 +48,6 @@ const reducer = (state = initialState, action) => {
         case(actionTypes.SHOW_MODAL):
             return{
                 ...state,
-                open:true
             }
         default:
             return state;

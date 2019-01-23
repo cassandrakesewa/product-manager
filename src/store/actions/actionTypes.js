@@ -6,4 +6,3 @@ export const FETCH_PRODUCT_FAILED = 'FETCH_PRODUCT_FAILED';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 
 export const ADD_PRODUCT = 'ADD_PRODUCT';
-export const SHOW_MODAL = 'SHOW_MODAL';

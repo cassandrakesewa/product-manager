@@ -6,26 +6,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-class Modal extends Component {
-  state = {
-    open: false,
-  };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  
-  render() {
+const modal = (props) => {
     return (
       <div>
         <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
+          open={props.open}
+          onClose={props.close}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
@@ -37,17 +23,13 @@ class Modal extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Disagree
-            </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+            <Button onClick={props.close} color="primary" autoFocus>
+              Okay
             </Button>
           </DialogActions>
         </Dialog>
       </div>
     );
-  }
 }
 
-export default Modal;
+export default modal;

@@ -2,11 +2,14 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios'
 import {loadState} from '../../localStorage';
 
-export const addProduct = (products,price) => {
+export const addProduct = (lastProductId,lastPriceId,products,price) => {
+    
     return {
         type:actionTypes.ADD_PRODUCT,
         products:products,
-        prices:price
+        prices:price,
+        lastPriceId,lastProductId,
+        lastPriceId:lastPriceId
     }
 }
 
@@ -38,14 +41,13 @@ export const fetchProductFailed = (error) => {
 export const fetchProducts = () => {
     return dispatch => {
         const currentState = loadState();
-        if(currentState !== {}){
+        
+        if(Object.keys(currentState).length !== 0){
             return;
         }
-        console.log("fetching.....");
         dispatch(fetchProductStart());
         axios.get('/5c3e15e63500006e003e9795')
         .then(response => {
-            console.log("from action fetch");
             const products = response.data.products;
             const lastProduct = products[products.length - 1];
             const lastProductId = lastProduct.id 
@@ -56,11 +58,11 @@ export const fetchProducts = () => {
                 }, []) 
                 const lastPrice = prices[prices.length - 1];
                 const lastPriceId = lastPrice.id 
-            console.log("prices",prices);
             dispatch(fetchProductSuccess(lastProductId,lastPriceId,products,prices));
         }).catch(error => {
             dispatch(fetchProductFailed(error))
         })
+        
     }
 }
 
@@ -71,8 +73,3 @@ export const deleteProduct = (index) => {
     }
 }
 
-export const showModal = () => {
-    return{
-        type:actionTypes.SHOW_MODAL,
-    }
-}

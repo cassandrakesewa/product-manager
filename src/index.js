@@ -17,7 +17,7 @@ const persistedState = loadState();
 const store = createStore(reducer, persistedState, composeEnhancers(applyMiddleware(thunk)));
 
 store.subscribe(() => {
-  console.log("savesate", store.getState());
+  // console.log("savesate", store.getState());
   saveState(
     store.getState()
   );

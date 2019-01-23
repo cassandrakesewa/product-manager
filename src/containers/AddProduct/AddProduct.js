@@ -29,36 +29,28 @@ class AddProduct extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props.products.length);
+        console.log("add prod lastpriceId", this.props.lastPriceId);
     }
 
     addNewProductHandler = (e) =>{
         e.preventDefault();
-        let arrayId = null;
-        
-        for(let key in this.props.products){
-            
-            arrayId = this.props.products[key].id
-          
-        }
-        console.log("id",arrayId);
 
+        const lastProductId = this.props.lastProductId  +1;
+        const lastPriceId = this.props.lastPriceId  +1;
 
-        const newPrices = {
-            id: '5',
-            price: (+this.state.price).toFixed(2),
+        const newPrice = {
+            id: lastPriceId,
+            price: +this.state.price,
             date: moment().format()
         };
-        const newProducts = {
-            id: '7',
+        const newProduct = {
+            id: lastProductId,
             name: this.state.name,
-            prices: newPrices     
+            prices: [newPrice]     
             
         };
         
-        console.log("pro", newProducts);
-        console.log("props product", this.props.products);
-        // this.onSubmitNewProduct(productData,priceData);
+        this.props.onSubmitNewProduct(lastProductId,lastPriceId,newProduct,newPrice);
     }
 
 
@@ -101,13 +93,15 @@ class AddProduct extends Component{
 const mapStateToProps = state => {
     return {
         products:state.products,
-        prices:state.prices
+        prices:state.prices,
+        lastProductId:state.lastProductId,
+        lastPriceId:state.lastPriceId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmitNewProduct: (products, prices) => dispatch(actions.addProduct(products,prices))
+        onSubmitNewProduct: (lastProductId, lastPriceId,products, prices) => dispatch(actions.addProduct(lastProductId, lastPriceId,products,prices))
     }
 }
 
