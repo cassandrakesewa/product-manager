@@ -1,3 +1,6 @@
+// This component shows the drug information with historical prices
+
+
 import React from 'react';
 import moment  from 'moment';
 
@@ -10,6 +13,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { CardActions } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = {
     card: {
@@ -42,6 +47,8 @@ const productDetails = (props) =>{
             </TableRow>
         )
     })
+
+
     return(
     <Card className={classes.card}>
         <CardContent>
@@ -62,6 +69,9 @@ const productDetails = (props) =>{
             </Table>
             
         </CardContent>
+        <CardActions>
+            {props.children}
+        </CardActions>
     </Card>
     );
 }

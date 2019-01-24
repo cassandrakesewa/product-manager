@@ -19,12 +19,21 @@ const reducer = (state = initialState, action) => {
                 lastPriceId:action.lastPriceId
             }
         case(actionTypes.UPDATE_PRODUCT):
-            const newProductState = {...state.products}
-            newProductState[action.productIndex] = action.products
+            const newProductState = state.products.map(product => {
+                if(product.id === action.product.id){
+                    return action.product
+                }
+                return product
+            })
+            
+            const newPrice = state.prices;
+            if (action.price) {
+                newPrice.push(action.price);
+            }
             return{
                 ...state,
                 products:newProductState,
-                prices:state.prices.concat(action.price),
+                prices:newPrice,
                 lastPriceId:action.lastPriceId,
                 updated:true
             }

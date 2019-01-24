@@ -9,7 +9,7 @@ import * as actions from '../../store/actions/index';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Modal from '../../components/Modal/Modal';
+import UpdateProductModal from '../../components/Modal/UpdateProductModal';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
 
 class ProductListing extends Component{
@@ -18,7 +18,9 @@ class ProductListing extends Component{
         productId:null,
         productName:'',
         price:null,
-        viewProductDetails:false
+        viewProductDetails:false,
+        currentPrice:0
+
     }
 
     componentWillMount(){
@@ -39,22 +41,28 @@ class ProductListing extends Component{
 
     onViewProductDetails = (productId) =>{
         const productArray = this.props.products.find(product => product.id === productId);
+       
+        this.setState({
+            viewProductDetails:true,
+            productName:productArray.name,
+            price:productArray.prices,
 
+        })
+    }
+
+    onHideProductDetails = () => {
         this.setState({
             viewProductDetails:!this.state.viewProductDetails,
-            productName:productArray.name,
-            price:productArray.prices
-
         })
     }
         
 
-    handleModalClickOpen = (productId,productName) => {
-        console.log("modal", productId)
+    handleModalClickOpen = (productId,productName,productPrice) => {
       this.setState({
           openModal:true,
           productId:productId,
           productName:productName,
+          currentPrice:productPrice
       })
     }
 
@@ -69,7 +77,7 @@ class ProductListing extends Component{
     render(){
         let productData = <p>Products Loading..... </p>
         let updatedRedirect = this.props.updated ? <Redirect to="/" /> : null;
-        console.log("prices in", this.props.products);
+       
         
         if (!this.props.loading && this.props.products) {
             
@@ -86,15 +94,15 @@ class ProductListing extends Component{
                     <TableRow key={product.id}>
                         <TableCell align="center">{product.id}</TableCell>
                         <TableCell align="center">{product.name}</TableCell>
-                        <TableCell align="center">{recentPrice.price}</TableCell>
+                        <TableCell align="center">{recentPrice.price.toFixed(2)}</TableCell>
                         <TableCell align="center">{date}</TableCell>
                         <TableCell align="center">
-                            <Button color="primary" style={{fontSize:'11px'}} onClick={() => this.onViewProductDetails(product.id)}>
-                             {this.state.viewProductDetails ? 'Hide' : 'View'} 
-                            </Button>
+                        <Button color="primary" style={{fontSize:'11px'}} onClick={() => this.onViewProductDetails(product.id)}>
+                            View
+                        </Button>
                         </TableCell>
                         <TableCell align="center">
-                            <Button color="primary" style={{fontSize:'11px'}} onClick={()=> this.handleModalClickOpen(product.id, product.name)}>
+                            <Button color="primary" style={{fontSize:'11px'}} onClick={()=> this.handleModalClickOpen(product.id, product.name, recentPrice.price)}>
                              Edit 
                             </Button>
                         </TableCell>
@@ -110,14 +118,24 @@ class ProductListing extends Component{
 
         return (
             <React.Fragment>
-                {updatedRedirect}
-                <h1>Drug Listings with Current Prices</h1>
+                {/* {updatedRedirect} */}
+                <h1>Drug Listings</h1>
                 {productData}
+                
+                {/* Only show product details when view is clicked */}
+                {this.state.viewProductDetails ? 
+                <ProductDetails 
+                name={this.state.productName} 
+                prices={this.state.price}>
+                    <Button color="primary" style={{fontSize:'11px',margin:"0 auto"}} onClick={this.onHideProductDetails}>
+                        Hide Details
+                    </Button>
+                </ProductDetails> : null}
 
-                {this.state.viewProductDetails ? <ProductDetails name={this.state.productName} prices={this.state.price} /> : null}
-                <Modal
+                <UpdateProductModal
                 productId={this.state.productId}
                 name={this.state.productName}
+                currentPrice={this.state.currentPrice}
                 open={this.state.openModal} 
                 close={this.handleModalClickClose}
                 changeName={this.onNameChangeHandler}

@@ -29,7 +29,11 @@ class Form extends Component{
                 </FormControl>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="price" shrink={true}>Drug Price</InputLabel>
-                    <Input id="price" name="price" value={this.props.price} onChange={this.props.onChangePrice}/>
+                    <Input id="price" name="price" 
+                    value={this.props.price} 
+                    onChange={this.props.onChangePrice} 
+                    disabled={this.props.enableInput}/>
+                
                 </FormControl><br/>
                 {this.props.children}
                 

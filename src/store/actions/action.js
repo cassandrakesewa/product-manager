@@ -13,14 +13,13 @@ export const addProduct = (lastProductId,lastPriceId,products,price) => {
     }
 }
 
-export const updateProduct = (lastPriceId,productIndex,products,price) => {
+export const updateProduct = (lastPriceId,product,price) => {
     
     return {
-        type:actionTypes.ADD_PRODUCT,
-        products:products,
+        type:actionTypes.UPDATE_PRODUCT,
+        product:product,
         price:price,
         lastPriceId:lastPriceId,
-        productIndex:productIndex
     }
 }
 
