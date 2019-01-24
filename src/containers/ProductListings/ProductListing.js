@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import axios from '../../axios';
 import { connect } from 'react-redux'
 import moment  from 'moment';
 import { Redirect } from 'react-router-dom';
@@ -77,14 +75,13 @@ export class ProductListing extends Component{
 
     render(){
         let productData = <p>Products Loading..... </p>
-        let updatedRedirect = this.props.updated ? <Redirect to="/" /> : null;
        
         
         if (!this.props.loading && this.props.products) {
             
             const products = this.props.products.map((product,index) => {
-                // Using bubble sorting algorithm 
-                
+
+                // Using sorting to get most recent price data
                 const recentPrice = product.prices.sort((a, b) => {
                     const aDate = new Date(a.date);
                     const bDate = new Date(b.date);
@@ -119,7 +116,7 @@ export class ProductListing extends Component{
 
         return (
             <React.Fragment>
-                {/* {updatedRedirect} */}
+                
                 <h1>Drug Listings</h1>
                 {productData}
                 
@@ -132,7 +129,8 @@ export class ProductListing extends Component{
                         Hide Details
                     </Button>
                 </ProductDetails> : null}
-
+                
+                {/* Modal contains form form updating drug name and setting new price */}
                 <UpdateProductModal
                 productId={this.state.productId}
                 name={this.state.productName}

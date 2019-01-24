@@ -1,3 +1,5 @@
+// This modal handles drug update
+
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 
@@ -47,17 +49,21 @@ class UpdateProductModal extends Component{
     const name = this.props.name;
     const price = Number.parseFloat(this.state.price);
 
+    // Get the current product object to be edited from the products array
     const product = this.props.products.find(product => product.id === this.props.productId);
     const updatedProduct = {
       ...product,
       name
     };
 
-    // Initially set to null so that if there is a price change, we do not have to update
+    // Initially set to newPrice  to null so that if user does not set price, we do not have to update
     // the new price.
     let newPrice = null;
     let newLastPriceId = this.props.lastPriceId;
 
+    // Checks if user set a price value to be greater than 0
+    // and also the new price been set is not equal to the current price on the product
+    // eg: if drug price is 2.20 and you set a new price to 2.20, the newPrice null will be passed
     const priceDiffers = price > 0 &&  price !== Number.parseFloat(this.props.currentPrice);
 
     if (priceDiffers) {

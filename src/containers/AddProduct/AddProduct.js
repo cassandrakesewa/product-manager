@@ -1,3 +1,5 @@
+// This page is use to add new drug and also set new price
+
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -7,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import * as actions from '../../store/actions/index';
 import Form from '../../components/Form/Form';
 import { withStyles } from '@material-ui/core';
-import { number } from 'prop-types';
 
 
 const styles = {
@@ -51,10 +52,12 @@ class AddProduct extends Component{
         })
     }
     
+    // This Validate function checks if price set is greater than zero 
+    // and also has only numbers without letter (eg: Price input accepts 1.2 or 5 not 4d or 4,2g or one)
     validateForm = () => {
         let valid = true;
        
-        const validnumberinput = /^\d*\.?\d*$/; // returns true if valid(to validate prices to be int or decimals)
+        const validnumberinput = /^\d*\.?\d*$/; // returns true if valid(to validate prices to be integer or decimals)
         const validname = this.state.name.trim() !== '';
         const validprice = this.state.price > 0 && validnumberinput.test(this.state.price);
         valid = validname && validprice;

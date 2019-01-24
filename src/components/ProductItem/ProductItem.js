@@ -1,3 +1,6 @@
+// This component listing header(eg: drug name, price etc) 
+// and their corresponding data fetched from the endpoint 
+
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';

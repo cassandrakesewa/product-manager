@@ -1,4 +1,5 @@
 // This component shows the drug information with historical prices
+// at the bottom of the product listing page
 
 
 import React from 'react';
@@ -14,7 +15,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { CardActions } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 
 const styles = {
     card: {
@@ -37,7 +37,7 @@ const styles = {
 
 const productDetails = (props) =>{
     const { classes } = props;
-    console.log("pdpri", props.prices)
+    
     const prices = props.prices.map(price => {
         let date = moment(price.date).format('MM/DD/YYYY');
         return (
@@ -55,7 +55,7 @@ const productDetails = (props) =>{
             <Typography className={classes.title} color="textSecondary" gutterBottom>
             Historical Prices for <strong>{props.name}</strong>
             </Typography>
-            {/* <Divider className={classes.divider}/> */}
+            
             <Table>
                 <TableHead>
                     <TableRow>
