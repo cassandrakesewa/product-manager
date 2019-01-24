@@ -18,32 +18,30 @@ const styles = {
     }
 }
 
-class Form extends Component{
-    render(){
-        const { classes } = this.props;
+const form = (props) => {
+        const { classes } = props;
         return(
             <form>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="name" shrink={true}>Drug Name</InputLabel>
-                    <Input id="name" name="name" value={this.props.name} onChange={this.props.onChangeName}/>
+                    <Input id="name" name="name" value={props.name} onChange={props.onChangeName}/>
                 </FormControl>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="price" shrink={true}>Drug Price</InputLabel>
                     <Input id="price" name="price" 
-                    value={this.props.price} 
-                    onChange={this.props.onChangePrice} 
-                    disabled={this.props.enableInput}/>
+                    value={props.price} 
+                    onChange={props.onChangePrice} 
+                    disabled={props.enableInput}/>
                 
                 </FormControl><br/>
-                {this.props.children}
+                {props.children}
                 
             </form>
             
         );
-    }
 }
-Form.propTypes = {
+form.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-export default withStyles(styles)(Form);
+export default withStyles(styles)(form);

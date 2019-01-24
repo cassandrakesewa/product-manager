@@ -19,7 +19,7 @@ const styles = {
     }
 }
 
-class AddProduct extends Component{
+export class AddProduct extends Component{
     state = {
         name:'',
         price:0,

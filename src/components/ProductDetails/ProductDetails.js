@@ -43,7 +43,7 @@ const productDetails = (props) =>{
         return (
             <TableRow key={price.id}>
                 <TableCell align="left">{date}</TableCell>
-                <TableCell align="left">{price.price}</TableCell>
+                <TableCell align="left">{price.price.toFixed(2)}</TableCell>
             </TableRow>
         )
     })

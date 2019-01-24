@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import moment  from 'moment';
-import { Redirect } from 'react-router-dom';
 
 import ProductItem from '../../components/ProductItem/ProductItem';
 import * as actions from '../../store/actions/index';

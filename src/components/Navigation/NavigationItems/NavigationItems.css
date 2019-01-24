@@ -6,3 +6,10 @@
     display: flex;
     height: 100%;
 }
+
+.Span{
+    font-size:20px; 
+    float:left;
+    color:#464545;
+    margin-top:14px
+}

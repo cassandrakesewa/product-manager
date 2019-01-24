@@ -12,13 +12,13 @@ const styles = {
     }
   };
 
-const navigationItems = (props) => {
+ const navigationItems = (props) => {
     const { classes } = props;
     return(
         <AppBar position="static" classes={{ root: classes.root }}>
             
             <ul>
-                <span style={{fontSize:'20px', float:'left', color:'#464545', marginTop:'14px'}}><strong>Product Manager</strong></span>
+                <span className='Span'><strong>Product Manager</strong></span>
                 <NavItem link="/add-drug">Add Drug</NavItem>
                 <NavItem link="/" exact>Drug Listings</NavItem>
                 
