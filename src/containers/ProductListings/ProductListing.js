@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import axios from '../../axios';
 import { connect } from 'react-redux'
 import moment  from 'moment';
@@ -12,7 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import UpdateProductModal from '../../components/Modal/UpdateProductModal';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
 
-class ProductListing extends Component{
+export class ProductListing extends Component{
     state={
         openModal:false,
         productId:null,
@@ -152,7 +153,6 @@ const mapStateToProps = state =>{
         loading:state.loading,
         updated:state.updated
     }
-    
 }
 
 const mapDispatchToProps = dispatch => {
