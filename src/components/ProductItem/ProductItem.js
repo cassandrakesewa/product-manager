@@ -33,10 +33,10 @@ const productItem = (props) => {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                    <TableCell align="right">id</TableCell>
-                    <TableCell align="right">name</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                    <TableCell align="left">Date</TableCell>
+                    <TableCell align="center">id</TableCell>
+                    <TableCell align="center">name</TableCell>
+                    <TableCell align="center">Price</TableCell>
+                    <TableCell align="center">Date</TableCell>
                     <TableCell align="center">View</TableCell>
                     <TableCell align="center">Edit</TableCell>
                     <TableCell align="center">Delete</TableCell>

@@ -10,14 +10,15 @@ import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Modal from '../../components/Modal/Modal';
-
+import ProductDetails from '../../components/ProductDetails/ProductDetails';
 
 class ProductListing extends Component{
     state={
         openModal:false,
         productId:null,
         productName:'',
-        price:null
+        price:null,
+        viewProductDetails:false
     }
 
     componentWillMount(){
@@ -35,9 +36,18 @@ class ProductListing extends Component{
             productName: event.target.value,
         })
     }
-    
-     
-    
+
+    onViewProductDetails = (productId) =>{
+        const productArray = this.props.products.find(product => product.id === productId);
+
+        this.setState({
+            viewProductDetails:!this.state.viewProductDetails,
+            productName:productArray.name,
+            price:productArray.prices
+
+        })
+    }
+        
 
     handleModalClickOpen = (productId,productName) => {
         console.log("modal", productId)
@@ -75,11 +85,19 @@ class ProductListing extends Component{
                 return (
                     <TableRow key={product.id}>
                         <TableCell align="center">{product.id}</TableCell>
-                        <TableCell align="right">{product.name}</TableCell>
-                        <TableCell align="right">{recentPrice.price}</TableCell>
-                        <TableCell align="left">{date}</TableCell>
-                        <TableCell align="center"><Button color="primary" style={{fontSize:'11px'}}> View </Button></TableCell>
-                        <TableCell align="center"><Button color="primary" style={{fontSize:'11px'}} onClick={()=> this.handleModalClickOpen(product.id, product.name)}> Edit </Button></TableCell>
+                        <TableCell align="center">{product.name}</TableCell>
+                        <TableCell align="center">{recentPrice.price}</TableCell>
+                        <TableCell align="center">{date}</TableCell>
+                        <TableCell align="center">
+                            <Button color="primary" style={{fontSize:'11px'}} onClick={() => this.onViewProductDetails(product.id)}>
+                             {this.state.viewProductDetails ? 'Hide' : 'View'} 
+                            </Button>
+                        </TableCell>
+                        <TableCell align="center">
+                            <Button color="primary" style={{fontSize:'11px'}} onClick={()=> this.handleModalClickOpen(product.id, product.name)}>
+                             Edit 
+                            </Button>
+                        </TableCell>
                         <TableCell align="right"><Button color="secondary" style={{fontSize:'11px'}} onClick={()=>this.onDeleteHandler(index)}> Delete </Button></TableCell>
                     </TableRow> 
                 );
@@ -95,6 +113,8 @@ class ProductListing extends Component{
                 {updatedRedirect}
                 <h1>Drug Listings with Current Prices</h1>
                 {productData}
+
+                {this.state.viewProductDetails ? <ProductDetails name={this.state.productName} prices={this.state.price} /> : null}
                 <Modal
                 productId={this.state.productId}
                 name={this.state.productName}

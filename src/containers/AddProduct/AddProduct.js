@@ -23,9 +23,6 @@ class AddProduct extends Component{
         price:0
     }
 
-    componentDidMount(){
-        console.log("add prod lastpriceId", this.props.lastPriceId);
-    }
 
     addNewProductHandler = (e) =>{
         e.preventDefault();
@@ -45,7 +42,7 @@ class AddProduct extends Component{
             
         };
         
-        this.props.onSubmitNewProduct(lastProductId,lastPriceId,newProduct,newPrice);
+        // this.props.onSubmitNewProduct(lastProductId,lastPriceId,newProduct,newPrice);
     }
 
 
@@ -86,7 +83,7 @@ const mapStateToProps = state => {
         products:state.products,
         prices:state.prices,
         lastProductId:state.lastProductId,
-        lastPriceId:state.lastPriceId
+        lastPriceId:state.lastPriceId,
     }
 }
 

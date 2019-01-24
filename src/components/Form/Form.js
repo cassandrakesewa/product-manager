@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
-
-
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -39,5 +38,8 @@ class Form extends Component{
         );
     }
 }
+Form.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
 
 export default withStyles(styles)(Form);
