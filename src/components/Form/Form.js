@@ -13,7 +13,7 @@ const styles = {
         padding:'50px 5px'
     },
     formControl:{
-        width:'60%',
+        width:'70%',
         marginBottom:'20px',
     }
 }

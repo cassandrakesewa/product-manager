@@ -12,7 +12,7 @@ const styles = {
     }
   };
 
- const navigationItems = (props) => {
+ export const NavigationItems = (props) => {
     const { classes } = props;
     return(
         <AppBar position="static" classes={{ root: classes.root }}>
@@ -28,4 +28,4 @@ const styles = {
     );
 }
 
-export default withStyles(styles)(navigationItems);
+export default withStyles(styles)(NavigationItems);
